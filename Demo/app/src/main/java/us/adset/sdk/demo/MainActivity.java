@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBtnClicked(View view) {
-        Adsetus.showAd(this);
+    	if (Adsetus.isAdLoaded()) {
+        	Adsetus.showAd(this);
+		}
     }
 }

@@ -1,5 +1,5 @@
 # Adsetus Android SDK
-SDK Version: 1.0.6
+SDK Version: 1.0.9
 
 ## Overview
 ...
@@ -14,11 +14,18 @@ The Adsetus Android SDK requires the following libraries:
 * adcolony-\<version>.jar
 * applovin-\<version>.jar
 * chartboost-\<version>.jar
-* startapp-\<version>.jar
 * unity-ads-\<version>.jar
 * vungle-\<version>.jar
+* adapter-rxjava-\<version>.jar
+* converter-gson-\<version>.jar
 * dagger-\<version>.jar
+* eventbus-\<version>.jar
+* gson-\<version>.jar
 * javax.inject-\<version>.jar
+* okhttp-\<version>jar
+* okio-\<version>.jar
+* retrofit-\<version>.jar
+* rxjava-\<version>.jar
 
 ### 2. Add Native Libraries To Your Project
 
@@ -65,6 +72,16 @@ Add the following lines to your AndroidManifest.xml:
             android:hardwareAccelerated="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
+        <activity android:name="com.unity3d.ads.adunit.AdUnitTransparentActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+        <activity android:name="com.unity3d.ads.adunit.AdUnitTransparentSoftwareActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
         <activity android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
             android:hardwareAccelerated="false"
@@ -77,6 +94,10 @@ Add the following lines to your AndroidManifest.xml:
         <activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+
+         <activity android:name="com.vungle.publisher.FlexViewAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
 
         <activity android:name="com.chartboost.sdk.CBImpressionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -92,20 +113,11 @@ Add the following lines to your AndroidManifest.xml:
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true" />
 
-        <activity android:name="com.startapp.android.publish.list3d.List3DActivity"
-            android:theme="@android:style/Theme" />
+       <activity android:name="com.applovin.adview.AppLovinInterstitialActivity"
+            android:configChanges="orientation|screenSize" />
 
-        <activity android:name="com.startapp.android.publish.OverlayActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name="com.startapp.android.publish.FullScreenActivity"
-            android:theme="@android:style/Theme"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
-
-        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity"
+            android:configChanges="orientation|screenSize" />
     <application/>
 
 </manifest>
@@ -133,5 +145,7 @@ public class MyActivity extends Activity {
 Simply call the following method.
 
 ```Java
-Adsetus.showAd();
+if (Adsetus.isAdLoaded()) {
+    Adsetus.showAd();
+}
 ```
